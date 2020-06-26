@@ -23,8 +23,8 @@ exports.init = async (req, res) => {
 				.split(':');
 		} else {
 			// api key and secret were provided from a .env file
-			apiKey = process.env.REACT_APP_STREAM_API_KEY;
-			apiSecret = process.env.REACT_APP_STREAM_API_SECRET;
+			apiKey = process.env.STREAM_API_KEY;
+			apiSecret = process.env.STREAM_API_SECRET;
 		}
 
 		const client = new StreamChat(apiKey, apiSecret);

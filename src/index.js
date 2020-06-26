@@ -18,7 +18,7 @@ api.use(cors());
 api.use(compression());
 api.use(helmet());
 api.use(express.json());
-api.use(auth({ key: process.env.REACT_APP_STREAM_API_KEY, override: false }));
+// api.use(auth({ key: process.env.REACT_APP_STREAM_API_KEY, override: false }));
 
 api.listen(process.env.PORT, (error) => {
 	if (error) {
