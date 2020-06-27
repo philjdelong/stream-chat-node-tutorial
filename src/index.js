@@ -1,7 +1,3 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 import fs from 'fs';
 import path from 'path';
 import express from 'express';
@@ -12,13 +8,16 @@ import compression from 'compression';
 import './utils/db';
 import auth from './utils/auth';
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 const api = express();
 
 api.use(cors());
 api.use(compression());
 api.use(helmet());
 api.use(express.json());
-// api.use(auth({ key: process.env.REACT_APP_STREAM_API_KEY, override: false }));
+api.use(auth({ key: process.env.STREAM_API_KEY, override: false }));
 
 api.listen(process.env.PORT, (error) => {
 	if (error) {
