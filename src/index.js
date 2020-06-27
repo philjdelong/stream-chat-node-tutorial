@@ -6,7 +6,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 
 import './utils/db';
-import auth from './utils/auth';
+// import auth from './utils/auth';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -17,7 +17,7 @@ api.use(cors());
 api.use(compression());
 api.use(helmet());
 api.use(express.json());
-api.use(auth({ key: process.env.STREAM_API_KEY, override: false }));
+// api.use(auth({ key: process.env.STREAM_API_KEY, override: false }));
 
 api.listen(process.env.PORT, (error) => {
 	if (error) {
