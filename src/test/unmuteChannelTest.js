@@ -22,25 +22,29 @@ const test = async () => {
     // create channel
     const chatChannel = client.channel('messaging', 'test-unmute-1', {
         name: "unmute-test",
-        members: ["phil", "courtney"]
+        members: ["phil", "courtney"],
     });
 
     if(chatChannel) {
         console.log(chalk.blue("Channel created"))
+    } else {
+        console.log(chalk.redBright("Channel not created"));
     }
 
     // mute channel
     await chatChannel.create();
-    const muteChatChannel = chatChannel.update({'mute': true});
-
-    if(muteChatChannel) {
-        console.log(chalk.yellow("Channel muted"));
-    }
-
+    const muteChatChannel = chatChannel.update({"mute": true});
     await muteChatChannel;
+    
+    if(chatChannel.data['mute'] == true) {
+        console.log(chalk.blue("Channel muted"));
+    } else {
+        console.log(chalk.redBright("Channel not muted"));
+    };
 
+    
     const unmuteChatChannel = () => {
-        if(chatChannel['data']['mute'] == true) {
+        if(chatChannel.data['mute'] == true) {
             chatChannel.update({'mute': false});
             console.log(chalk.yellow("Channel unmuted"));
             console.log(chalk.greenBright("TEST PASSED"));
@@ -48,6 +52,7 @@ const test = async () => {
             console.log(chalk.redBright("Channel already unmuted"));
         }
     }
+    
     unmuteChatChannel();
 };
 
