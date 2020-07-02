@@ -10,33 +10,33 @@ const test = async () => {
   // SET USER
   const philID = "phil";
   const philToken = await client.createToken(philID);
-  const setPhil = await client.setUser( { id: philID }, philToken )
-  if(setPhil) {
+  const philUser = await client.setUser( { id: philID }, philToken )
+  if(philUser) {
     console.log(chalk.blue("User created"));
   }
 
   // CREATE CHANNEL
-  const conversation = client.channel("messaging", "testing-mute-1", {
+  const chatChannel = client.channel("messaging", "testing-mute-1", {
     name: "mute-test",
     members: ["phil", "bob"],
   });
 
-  if(conversation) {
+  if(chatChannel) {
     console.log(chalk.blue("Channel created"));
   }
   
   // MUTE CHANNEL
-  await conversation.create()
-  const muteConversation = await conversation.update({'mute' : true})
-
-  if(muteConversation) {
-    console.log(chalk.yellow("Channel muted"))
-  }
+  await chatChannel.create()
+  await chatChannel.update({'mute': true});
+  philUser.me.channel_mutes
+  // await philUser.me.channel_mutes.push(chatChannel.id)
 
   // VALIDATE TEST
-  if(conversation['data']['mute']) {
+  if(chatChannel.data['mute'] == true) {
+    console.log(chalk.yellow("Channel muted"))
     console.log(chalk.greenBright("Test PASSING"))
   } else {
+    console.log(chalk.redBright("Channel not muted"));
     console.log(chalk.red("Test FAILING"))
   }
 };
