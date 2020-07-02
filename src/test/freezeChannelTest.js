@@ -34,7 +34,6 @@ const test = async () => {
     // freeze channel
     const freezeChannel = await chatChannel.update({frozen: true});
     freezeChannel;
-    console.log(chatChannel.data);
 
     if(chatChannel.data.frozen == true) {
         console.log(chalk.yellow("Channel Frozen"));
