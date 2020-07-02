@@ -12,6 +12,7 @@ const test = async () => {
     const userID = "phil";
     const userToken = await client.createToken(userID);
     const setUser = client.setUser( {id: userID }, userToken );
+
     if(setUser) {
         console.log(chalk.blue("User created"));
     } else {
@@ -21,7 +22,7 @@ const test = async () => {
     // create channel
     const chatChannel = client.channel('messaging', 'test-unmute-1', {
         name: "unmute-test",
-        members: ["phil", "courtney"],
+        members: ["phil", "bob"],
     });
 
     if(chatChannel) {
@@ -30,28 +31,17 @@ const test = async () => {
         console.log(chalk.redBright("Channel not created"));
     };
 
-    // mute channel
-    await chatChannel.create();
-    const muteChatChannel = chatChannel.update({mute: true});
-    await muteChatChannel;
-    
-    if(chatChannel.data.mute == true) {
-        console.log(chalk.blue("Channel muted"));
+    // freeze channel
+    const freezeChannel = await chatChannel.update({frozen: true});
+    freezeChannel;
+    console.log(chatChannel.data);
+
+    if(chatChannel.data.frozen == true) {
+        console.log(chalk.yellow("Channel Frozen"));
+        console.log(chalk.greenBright("Test PASSING"));
     } else {
-        console.log(chalk.redBright("Channel not muted"));
+        console.log(chalk.redBright("Test failing"));
     };
-
-    const unmuteChatChannel = () => {
-        if(chatChannel.data.mute == true) {
-            chatChannel.update({mute: false});
-            console.log(chalk.yellow("Channel unmuted"));
-            console.log(chalk.greenBright("TEST PASSED"));
-        } else {
-            console.log(chalk.redBright("Channel already unmuted"));
-        }
-    };
-
-    unmuteChatChannel();
 };
 
 test();
