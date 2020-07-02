@@ -42,7 +42,6 @@ const test = async () => {
         console.log(chalk.redBright("Channel not muted"));
     };
 
-    
     const unmuteChatChannel = () => {
         if(chatChannel.data['mute'] == true) {
             chatChannel.update({'mute': false});
@@ -52,7 +51,7 @@ const test = async () => {
             console.log(chalk.redBright("Channel already unmuted"));
         }
     }
-    
+
     unmuteChatChannel();
 };
 
