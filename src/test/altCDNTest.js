@@ -15,14 +15,33 @@ const test = async () => {
     const userToken = await client.createToken(userID);
     await client.upsertUser({ id: userID, name: userID, role: userRole }, userToken);
 
-    class MyUploader: Uploader {
-        // include functions here
-    };
+    // create channel
+    const chatChannel = await client.channel('messaging', 'General', {
+        name: "CDN-test",
+        members: [userID],
+    });
+
+    await chatChannel.create()
+    await chatChannel.addMembers([userID])
+
+    client.configs.messaging.uploads = false
+    console.log(client.configs.messaging.uploads)
+
+    // const info = await chatChannel.sendMessage({
+    //     text: "Ayoo",
+    //     user_id: userID,
+    //     mentioned_users: [userID]
+    // });
+
+    // console.log(info.message.id);
+    // console.log(chatChannel);
+
+    // class MyUploader: Uploader {
+    //     // include functions here
+    // };
     
-    let myUploader = MyUploader();
-    channelPresenter.uploadManager = UploadManager(uploader: myUploader);
-
-
+    // let myUploader = MyUploader();
+    // channelPresenter.uploadManager = UploadManager(uploader: myUploader);
 };
 
 test();
