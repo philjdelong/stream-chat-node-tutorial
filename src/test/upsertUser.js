@@ -10,8 +10,10 @@ const test = async () => {
 
     // create user with .upsertUser()
     const userID = "phil";
+    const userRole = "admin"
+    
     const userToken = await client.createToken(userID);
-    const createOrUpdate = await client.upsertUser({ id: userID, name: userID, role: 'admin' }, userToken);
+    const createOrUpdate = await client.upsertUser({ id: userID, name: userID, role: userRole }, userToken);
 
     if(createOrUpdate) {
         console.log(chalk.yellow("User successfully created or updated"));
